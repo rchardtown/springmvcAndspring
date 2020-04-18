@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- spring 又被称之为： spring 容器的原因 -->
+
+<!-- 在spring的配置文件中，需要将要进行创建对象的类进行配置 -->
+<!--因为spring的配置文件中都是一些需要spring 进行创建对象的类的bean 标签 -->
+<!-- 而spring 启动后，随即完成两件事，对这些bean 标签所对应得类进行创建和管理 -->
+<!-- 介于，spring 有这个创建对象 + 管理对象的能力，所有spring 又被称为 spring 容器 -->
+<!-- spring 中存放的都是一些创建和管理的对象 -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 对于有接口，有实现类的，因为接口不能创建对象，当然不能放到class 中，所以默认将接口作为id 值来给对象去取名，只是一种默认的id值的写法而已 -->
+	<bean id="userDao"
+		class="cn.ekgc.spring.introductionDemo.ioc.userDao.UserDaoImpl"></bean>
+	<bean id="userService"
+		class="cn.ekgc.spring.introductionDemo.ioc.userService.UserServiceImpl">
+		<!-- 对userDao 赋初始值： 依赖注入 -->
+		<!-- userServiceImpl 创建好后正常运行，要依赖与userDao 有初始值，所以成该注入为：依赖注入。这里UserServiceImpl 
+			对象，依赖userDao 的初始值 -->
+
+		<property name="userDao" ref="userDao" />
+		<!-- name 为要注入的属性，ref 为初始值对应的id -->
+		<!-- spring 首先创建UserServiceImpl UserDaoImpl 两个对象， 接着，看到UserServiceImpl 
+			对象创建时需要依赖注入（需要给name的值userDao赋初始值），此时干两件事： 1. 给name的值userDao 首字母大些：UserDao 
+			后拼接上set :setUserDao，调用setUserDao（）方法，完成 "this.userDao = " 部分; 2.检索ref 对应的值 
+			和那个对象匹配（即和xml中那个id相同），就将该该对象（id 的值）拿过来，放到 1 中 = 右边 完成 : this.userDao =userDao; 
+			左侧时接口 UserDao userDao ,右侧实际是cn.ekgc.spring.introductionDemo.ioc.userDao.UserDaoImpl 
+			创建的对象，取名为userDao 而已 -->
+	</bean>
+
+
+	<!-- 依赖注入有三种方法： -->
+	<!-- 1. 接口注入，就是上面的有接口和实现类的方式 -->
+	<!-- 2. setter方法 注入 -->
+	<!-- 对有Setter 方法的User类进行依赖注入（设置userId的初始值） -->
+	<bean id="user" class="cn.ekgc.spring.introductionDemo.ioc.User">
+
+		<!-- ref 指定赋值的对象 ，value 直接给出要赋的值 -->
+		<property name="userId" value="1" />
+		<property name="cityList">
+			<list>
+				<value>西安市</value>
+				<value>宝鸡市</value>
+				<value>咸阳市</value>
+			</list>
+		</property>
+		<property name="countryMap">
+			<map>
+				<entry key="CN" value="中国" />
+				<entry key="US" value="美国" />
+			</map>
+		</property>
+	</bean>
+	<!-- 3.构造方法注入 -->
+	<bean id="teacher"
+		class="cn.ekgc.spring.introductionDemo.ioc.Teacher">
+		<!-- constructor-arg ：构造方法注入的标签 -->
+		<constructor-arg index="0" value="cuitao"/>
+		<constructor-arg index="1" value="250" />
+	</bean>
+
+</beans>
+
+

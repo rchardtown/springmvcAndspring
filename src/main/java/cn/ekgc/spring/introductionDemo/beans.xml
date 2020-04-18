@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- bean 相当于一个个对象 -->
+<!--    beans 命名空间的配置
+复制 spring-5.2.3.RELEASE-schema\beans\spring-beans.xsd 的第一行：  xmlns="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	Alt+/  ：选则最后一行 ：XML Schema namespace
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	Alt+/  ：选则	XML schema Location Attribute ,namespace为：xmlns 的内容;location为：xmlns的内容+文件名：spring-beans.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+-->
+<beans  xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+							http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- spring 的一个重要功能就是代替类创建对象 -->
+<!-- 所以首先得知道要给哪些类创建对象-->
+<!-- spring 定义了一个bean代表着对应的一个类 -->
+<!--  
+	其中class 匹配类的哪个位置的哪个类，id 是bean创建的对象的表示
+	<bean id="类名首字母小写" class="类的包位置.类名"></bean>
+-->
+
+	<bean id="introduction" class="cn.ekgc.spring.introductionDemo.Introduction"></bean>
+</beans>
